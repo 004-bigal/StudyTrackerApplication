@@ -7,6 +7,6 @@
 
 import SwiftData
 
-@Model class StudyTask {
+@Model class WeeklyStudyProgress {
     
 }

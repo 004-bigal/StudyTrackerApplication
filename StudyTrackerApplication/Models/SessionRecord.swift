@@ -6,7 +6,10 @@
 //
 
 import SwiftData
+import Foundation
 
-@Model class StudyTask {
-    
+@Model class SessionRecord {
+    var subjectID: String = UUID().uuidString
+    var subjectName: String
+    var studySessionDuration: Int
 }
