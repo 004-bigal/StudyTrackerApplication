@@ -24,6 +24,8 @@ class StudyRepositoryImplementation {
         studyTask.remove(StudyTask)
     }
     func updatingTask(_ studyTask: StudyTask) {
-        
+        if let taskIndex = studyTasks.firstIndex(where: {$0.id == studyTask.id}) {
+            studyTasks[taskIndex] = studyTask
+        }
     }
 }
