@@ -14,7 +14,7 @@ import Foundation
     var studySessionDuration: Int
     var sessionDate = Date()
     
-    init(subjectID: String, subjectName: String, studySessionDuration: Int, sessionDate: Date) {
+    init(subjectName: String, studySessionDuration: Int, sessionDate: Date) {
         self.id = UUID()
         self.subjectName = subjectName
         self.studySessionDuration = studySessionDuration
