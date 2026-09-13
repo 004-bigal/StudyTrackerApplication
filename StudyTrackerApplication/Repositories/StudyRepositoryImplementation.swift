@@ -21,7 +21,9 @@ class StudyRepositoryImplementation {
         studyTasks.append(studyTask)
     }
     func deletingTask(_ studyTask: StudyTask) {
-        studyTask.remove(StudyTask)
+        if let taskIndex = studyTasks.firstIndex(where: {$0.id == studyTask.id}) {
+            studyTasks.remove(at: taskIndex)
+        }
     }
     func updatingTask(_ studyTask: StudyTask) {
         if let taskIndex = studyTasks.firstIndex(where: {$0.id == studyTask.id}) {
