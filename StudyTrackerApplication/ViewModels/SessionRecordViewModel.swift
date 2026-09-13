@@ -8,5 +8,10 @@ import Foundation
 import Combine
 
 class SessionRecordViewModel: ObservableObject {
+    @Published var sessionRecord: [SessionRecord] = []
+    let repository: StudyRepository
     
+    init(repository: StudyRepository) {
+        self.repository = repository
+    }
 }

@@ -9,5 +9,10 @@ import Foundation
 import Combine
 
 class WeeklyStudyProgressViewModel: ObservableObject {
+    @Published var weeklyStudyProgress: [WeeklyStudyProgress] = []
+    let repository: StudyRepository
     
+    init(repository: StudyRepository) {
+        self.repository = repository
+    }
 }
