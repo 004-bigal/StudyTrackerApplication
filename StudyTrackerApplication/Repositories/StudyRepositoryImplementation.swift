@@ -18,7 +18,7 @@ class StudyRepositoryImplementation {
         return studyTasks
     }
     func addingTask(_ studyTask: StudyTask) {
-        studyTask.append(StudyTask)
+        studyTasks.append(studyTask)
     }
     func deletingTask(_ studyTask: StudyTask) {
         studyTask.remove(StudyTask)
