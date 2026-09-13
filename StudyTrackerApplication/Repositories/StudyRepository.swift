@@ -11,6 +11,6 @@ protocol StudyRepository {
     var sessionRecords: [SessionRecord] { get }
     var studyTasks: [StudyTask] { get }
     func saveASession(_ sessionRecord: SessionRecord)
-    func retrieveAllSessionData()
-    func retrieveAllStudyTasks()
+    func retrieveAllSessionData() -> [SessionRecord]
+    func retrieveAllStudyTasks() -> [StudyTask]
 }
