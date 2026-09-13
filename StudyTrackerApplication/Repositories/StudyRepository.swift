@@ -8,5 +8,7 @@
 import Foundation
 
 protocol StudyRepository {
-    
+    func
+    func
+    func
 }
