@@ -8,7 +8,7 @@
 import Foundation
 
 protocol StudyRepository {
-    func SaveASession()
+    func saveASession()
     func retrieveAllSessionData()
     func retrieveAllStudyTasks()
 }
