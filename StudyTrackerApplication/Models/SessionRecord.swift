@@ -9,12 +9,12 @@ import SwiftData
 import Foundation
 
 @Model class SessionRecord {
-    var subjectID: String = UUID().uuidString
+    var id = UUID()
     var subjectName: String
     var studySessionDuration: Int
     
     init(subjectID: String, subjectName: String, studySessionDuration: Int) {
-        self.subjectID = subjectID
+        self.id = UUID()
         self.subjectName = subjectName
         self.studySessionDuration = studySessionDuration
     }
