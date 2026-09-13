@@ -12,4 +12,10 @@ import Foundation
     var subjectID: String = UUID().uuidString
     var subjectName: String
     var studySessionDuration: Int
+    
+    init(subjectID: String, subjectName: String, studySessionDuration: Int) {
+        self.subjectID = subjectID
+        self.subjectName = subjectName
+        self.studySessionDuration = studySessionDuration
+    }
 }
