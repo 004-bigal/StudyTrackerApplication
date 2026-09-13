@@ -14,5 +14,5 @@ struct HomeScreenView: View {
 }
 
 #Preview {
-    SettingsView()
+    HomeScreenView()
 }
