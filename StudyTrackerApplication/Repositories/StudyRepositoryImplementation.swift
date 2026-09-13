@@ -12,7 +12,7 @@ class StudyRepositoryImplementation {
         sessionRecords.append(sessionRecord)
     }
     func retrieveAllSessionData() -> [SessionRecord] {
-        return sessionRecord
+        return sessionRecords
     }
     func retrieveAllStudyTasks() -> [StudyTask] {
         return studyTasks
