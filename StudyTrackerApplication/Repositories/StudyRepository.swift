@@ -13,4 +13,7 @@ protocol StudyRepository {
     func saveASession(_ sessionRecord: SessionRecord)
     func retrieveAllSessionData() -> [SessionRecord]
     func retrieveAllStudyTasks() -> [StudyTask]
+    func addingTask(_ studyTask: StudyTask)
+    func deletingTask(_ studyTask: StudyTask)
+    func updatingTask(_ studyTask: StudyTask)
 }
