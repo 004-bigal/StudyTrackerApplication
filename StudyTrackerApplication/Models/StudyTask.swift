@@ -8,10 +8,10 @@ import SwiftData
 import Foundation
 
 struct StudyTask: Identifiable {
-    var id = UUID()
+    var id: UUID
     var taskName: String
     var isTaskDone: Bool
-    var dateCreated = Date()
+    var dateCreated: Date
     
     init(taskName: String, isTaskDone: Bool, dateCreated: Date) {
         self.id = UUID()
