@@ -15,4 +15,18 @@ class StudyTaskViewModel: ObservableObject {
     init(repository: StudyRepository) {
         self.repository = repository
     }
+    
+    func loadTasks() {
+        studyTasks = repository.retrieveAllStudyTasks()
+    }
+    
+    func addingTask(_ nameOfTask: String) {
+        if(nameOfTask.isEmpty) {
+            return
+        }
+        let newStudyTask = StudyTask(taskName: nameOfTask, isTaskDone: false, dateCreated: Date.now)
+        
+        repository.addingTask(newStudyTask)
+        loadTasks()
+    }
 }
