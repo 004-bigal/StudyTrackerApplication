@@ -14,4 +14,8 @@ class SessionRecordViewModel: ObservableObject {
     init(repository: StudyRepository) {
         self.repository = repository
     }
+    
+    func loadAllSessionData() {
+        sessionRecord = repository.retrieveAllSessionData()
+    }
 }
