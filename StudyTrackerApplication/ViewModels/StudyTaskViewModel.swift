@@ -32,9 +32,8 @@ class StudyTaskViewModel: ObservableObject {
     
     func taskCompletion(_ task: StudyTask) {
         if let taskIndex = studyTasks.firstIndex(where: { $0.id == task.id }) {
-            var updatedTask = studyTasks[taskIndex]
-            updatedTask.isTaskDone = true
-            repository.updatingTask(updatedTask)
+            studyTasks[taskIndex].isTaskDone = true
+            repository.updatingTask(studyTasks[taskIndex])
             loadTasks()
         }
     }
