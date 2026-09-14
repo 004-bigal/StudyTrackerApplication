@@ -18,6 +18,7 @@ struct HomeScreenView: View {
                 StudyTaskView()
             }
             NavigationLink("Weekly progress") {
+                WeeklyStudyProgressView()
             }
         }
     }
