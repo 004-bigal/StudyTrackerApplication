@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct SessionRecordView: View {
+    @State var subjectName: String = ""
+    @State var studySessionDuration: String = ""
+    let theViewModel = SessionRecordViewModel(repository: StudyRepositoryImplementation())
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(spacing: 20) {
+            
+        }
     }
 }
 
