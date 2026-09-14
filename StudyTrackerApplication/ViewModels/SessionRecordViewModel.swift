@@ -18,4 +18,20 @@ class SessionRecordViewModel: ObservableObject {
     func loadAllSessionData() {
         sessionRecord = repository.retrieveAllSessionData()
     }
+    
+    func sessionLog(subjectName: String, studySessionDuration: Int) {
+        if(subjectName.isEmpty) {
+            return
+        }
+        if(studySessionDuration <= 0) {
+            return
+        }
+        let newStudySession = SessionRecord(
+            subjectName: subjectName,
+            studySessionDuration: studySessionDuration,
+            sessionDate: Date())
+        
+        repository.saveASession(newStudySession)
+        loadAllSessionData()
+    }
 }
