@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct StudyTaskView: View {
+    @State private var taskName: String = ""
+    @State private var errorMessage: String?
+    let viewModel = StudyTaskViewModel(repository: StudyRepositoryImplementation())
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
