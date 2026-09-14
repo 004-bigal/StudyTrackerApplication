@@ -31,12 +31,12 @@ class StudyTaskViewModel: ObservableObject {
     }
     
     func taskCompletion(_ task: StudyTask) {
-        if (task.isTaskDone) {
-            return
+        if let taskIndex = studyTasks.firstIndex(where: { $0.id == task.id }) {
+            var updatedTask = studyTasks[taskIndex]
+            updatedTask.isTaskDone = true
+            repository.updatingTask(updatedTask)
+            loadTasks()
         }
-        task.isTaskDone = true
-        repository.updatingTask(task)
-        loadTasks()
     }
     
     func taskDeletion(_ task: StudyTask) {
