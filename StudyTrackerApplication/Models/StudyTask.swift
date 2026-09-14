@@ -7,7 +7,7 @@
 import SwiftData
 import Foundation
 
-@Model class StudyTask {
+struct StudyTask: Identifiable {
     var id = UUID()
     var taskName: String
     var isTaskDone: Bool
