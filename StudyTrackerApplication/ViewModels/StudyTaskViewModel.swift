@@ -34,12 +34,10 @@ class StudyTaskViewModel: ObservableObject {
         if let taskIndex = studyTasks.firstIndex(where: { $0.id == task.id }) {
             studyTasks[taskIndex].isTaskDone = true
             repository.updatingTask(studyTasks[taskIndex])
-            loadTasks()
         }
     }
     
     func taskDeletion(_ task: StudyTask) {
         repository.deletingTask(task)
-        loadTasks()
     }
 }
