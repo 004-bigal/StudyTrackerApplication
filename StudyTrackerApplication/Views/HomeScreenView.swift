@@ -9,16 +9,18 @@ import SwiftUI
 
 struct HomeScreenView: View {
     var body: some View {
-        VStack(spacing: 20) {
-            NavigationLink("Log a study session") {
-                SessionRecordView()
-            }
-            
-            NavigationLink("Study tasks") {
-                StudyTaskView()
-            }
-            NavigationLink("Weekly progress") {
-                WeeklyStudyProgressView()
+        NavigationStack {
+            VStack(spacing: 20) {
+                NavigationLink("Log a study session") {
+                    SessionRecordView()
+                }
+                
+                NavigationLink("Study tasks") {
+                    StudyTaskView()
+                }
+                NavigationLink("Weekly progress") {
+                    WeeklyStudyProgressView()
+                }
             }
         }
     }
