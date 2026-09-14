@@ -9,15 +9,15 @@ import SwiftUI
 
 struct HomeScreenView: View {
     var body: some View {
-        VStack {
-            NavigationLink("") {
-                
+        VStack(spacing: 20) {
+            NavigationLink("Log a study session") {
+                SessionRecordView()
             }
-            NavigationLink("") {
-                
+            
+            NavigationLink("Study tasks") {
+                StudyTaskView()
             }
-            NavigationLink("") {
-                
+            NavigationLink("Weekly progress") {
             }
         }
     }

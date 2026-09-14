@@ -5,7 +5,7 @@
 //  Created by Alik Orgun on 13/9/2026.
 //
 
-class StudyRepositoryImplementation {
+class StudyRepositoryImplementation: StudyRepository {
     var sessionRecords: [SessionRecord] = []
     var studyTasks: [StudyTask] = []
     func saveASession(_ sessionRecord: SessionRecord) {
