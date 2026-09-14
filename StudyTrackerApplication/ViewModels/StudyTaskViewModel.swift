@@ -29,4 +29,18 @@ class StudyTaskViewModel: ObservableObject {
         repository.addingTask(newStudyTask)
         loadTasks()
     }
+    
+    func taskCompletion(_ task: StudyTask) {
+        if (task.isTaskDone) {
+            return
+        }
+        task.isTaskDone = true
+        repository.updatingTask(task)
+        loadTasks()
+    }
+    
+    func taskDeletion(_ task: StudyTask) {
+        repository.deletingTask(task)
+        loadTasks()
+    }
 }
