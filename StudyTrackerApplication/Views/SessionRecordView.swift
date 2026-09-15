@@ -11,7 +11,7 @@ struct SessionRecordView: View {
     @State var subjectName: String = ""
     @State var studySessionDuration: String = ""
     @State var errorMessage: String?
-    let theViewModel = SessionRecordViewModel(repository: StudyRepositoryImplementation())
+    @StateObject var theViewModel: SessionRecordViewModel
     var body: some View {
         
         if let errorMessage = errorMessage {
@@ -69,5 +69,7 @@ struct SessionRecordView: View {
     }
 
 #Preview {
-    SessionRecordView()
+    SessionRecordView(
+        theViewModel: SessionRecordViewModel(repository: StudyRepositoryImplementation())
+    )
 }
