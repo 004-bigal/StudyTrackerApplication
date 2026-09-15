@@ -8,19 +8,25 @@
 import SwiftUI
 
 struct HomeScreenView: View {
+    let sharedRepository = StudyRepositoryImplementation()
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
                 NavigationLink("Log a study session") {
-                    SessionRecordView()
+                    SessionRecordView(
+                        theViewModel: SessionRecordViewModel(repository: sharedRepository)
+                    )
                 }
                 
                 NavigationLink("Study tasks") {
-                    StudyTaskView()
+                    StudyTaskView(
+                        viewModel: StudyTaskViewModel(repository: sharedRepository)
+                    )
                 }
                 NavigationLink("Weekly progress") {
-                    WeeklyStudyProgressView(viewModel: WeeklyStudyProgressViewModel(repository: StudyRepositoryImplementation()))
-                }
+                    WeeklyStudyProgressView(
+                        viewModel: WeeklyStudyProgressViewModel(repository: sharedRepository))
+                    }
             }
         }
     }
