@@ -10,7 +10,11 @@ import SwiftUI
 struct StudyTaskView: View {
     @State private var taskName: String = ""
     @State private var errorMessage: String?
-    @StateObject private var viewModel = StudyTaskViewModel(repository: StudyRepositoryImplementation())
+    private static let sharedRepository = StudyRepositoryImplementation()
+    @StateObject private var viewModel: StudyTaskViewModel
+    init() {
+        _viewModel = StateObject(wrappedValue: StudyTaskViewModel(repository: StudyTaskView.sharedRepository))
+    }
     var body: some View {
         if let errorMessage = errorMessage {
             Text(errorMessage)
@@ -32,45 +36,40 @@ struct StudyTaskView: View {
             .buttonStyle(.borderedProminent)
 
             VStack {
-                List(viewModel.studyTasks) { task in
-                    HStack {
+                List {
+                    ForEach(Array(viewModel.studyTasks.enumerated()), id: \.element.id) { index, task in
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(task.taskName)
+                                    .font(.headline)
 
-                        VStack(alignment: .leading) {
-                            Text(task.taskName)
-                                .font(.headline)
+                                Text("Created: \(task.dateCreated.formatted())")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
 
-                            Text("Created: \(task.dateCreated.formatted())")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                        }
-
-                        Spacer()
-
-                        if task.isTaskDone {
-                            Text("Done")
-                                .foregroundColor(.green)
-                                .font(.caption)
-                        } else {
+                            Spacer()
+                            
                             Button("Complete") {
-                                viewModel.taskCompletion(task)
+                                viewModel.taskCompletion(viewModel.studyTasks[index])
                             }
                             .font(.caption)
-                        }
 
-                        Button("Delete") {
-                            viewModel.taskDeletion(task)
+
+                            Button("Delete") {
+                                viewModel.taskDeletion(viewModel.studyTasks[index])
+                            }
+                            .font(.caption)
+                            .foregroundColor(.red)
                         }
-                        .font(.caption)
-                        .foregroundColor(.red)
                     }
                 }
+
+
             }
             .frame(maxWidth: .infinity)
         }
         .padding()
-        .onAppear {
-            viewModel.loadTasks()
-        }
     }
 
     private func addTask() {

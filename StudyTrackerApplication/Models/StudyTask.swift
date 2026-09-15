@@ -13,8 +13,8 @@ struct StudyTask: Identifiable {
     var isTaskDone: Bool
     var dateCreated: Date
     
-    init(taskName: String, isTaskDone: Bool, dateCreated: Date) {
-        self.id = UUID()
+    init(id: UUID = UUID(), taskName: String, isTaskDone: Bool, dateCreated: Date) {
+        self.id = id
         self.taskName = taskName
         self.isTaskDone = isTaskDone
         self.dateCreated = dateCreated

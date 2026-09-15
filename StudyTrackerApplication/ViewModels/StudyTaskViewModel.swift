@@ -14,6 +14,7 @@ class StudyTaskViewModel: ObservableObject {
     
     init(repository: StudyRepository) {
         self.repository = repository
+        loadTasks()
     }
     
     func loadTasks() {
@@ -27,17 +28,24 @@ class StudyTaskViewModel: ObservableObject {
         let newStudyTask = StudyTask(taskName: nameOfTask, isTaskDone: false, dateCreated: Date.now)
         
         repository.addingTask(newStudyTask)
-        loadTasks()
+        studyTasks.append(newStudyTask)
     }
     
     func taskCompletion(_ task: StudyTask) {
         if let taskIndex = studyTasks.firstIndex(where: { $0.id == task.id }) {
-            studyTasks[taskIndex].isTaskDone = true
+            var updatedTask = studyTasks
+            updatedTask[taskIndex].isTaskDone = true
+            studyTasks = updatedTask
             repository.updatingTask(studyTasks[taskIndex])
         }
     }
+
     
     func taskDeletion(_ task: StudyTask) {
-        repository.deletingTask(task)
+        if let index = studyTasks.firstIndex(where: { $0.id == task.id }) {
+            studyTasks.remove(at: index)
+            repository.deletingTask(task)
+        }
     }
+
 }
