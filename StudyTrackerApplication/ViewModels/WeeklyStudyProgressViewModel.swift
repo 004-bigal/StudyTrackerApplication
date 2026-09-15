@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class WeeklyStudyProgressViewModel: ObservableObject {
-    @Published var weeklyStudyProgress: [WeeklyStudyProgress] = []
+    @Published var sessions: [SessionRecord] = []
     let repository: StudyRepository
     
     init(repository: StudyRepository) {
@@ -17,25 +17,18 @@ class WeeklyStudyProgressViewModel: ObservableObject {
     }
     
     func weeklyProgressLoad() {
-        let sessionsFromOverTheWeek = repository.retrieveAllSessionData()
-        guard let theWeek = Calendar.current.date(byAdding: .day, value: -7, to: Date()) else { return }
-        
-        let recentStudySessions = sessionsFromOverTheWeek.filter{ session in session.sessionDate >= theWeek }
-        
-        var totalStudy = 0
-        for session in recentStudySessions {
-            let studyMinutes = session.studySessionDuration
-            totalStudy = totalStudy + studyMinutes
-        }
-        
-        weeklyStudyProgress = [WeeklyStudyProgress(startDate: theWeek, totalStudyTime: totalStudy, sessions: sessionsFromOverTheWeek)]
+        sessions = repository.retrieveAllSessionData()
     }
     
     func dailyProgressChecklist() -> [Bool] {
         let studyCalendar = Calendar.current
-        let sessions = repository.retrieveAllSessionData()
+        let sessions = self.sessions
 
-        guard let weeklyStudyStart = studyCalendar.date(byAdding: .day, value: -6, to: Date()) else { return Array(repeating: false, count: 7) }
+        let today = Date()
+        let weekday = studyCalendar.component(.weekday, from: today)
+        let daysFromMonday = (weekday == 1) ? 6 : weekday - 2
+
+        guard let weeklyStudyStart = studyCalendar.date(byAdding: .day, value: -daysFromMonday, to: today) else { return Array(repeating: false, count: 7) }
 
         return (0..<7).map { offset in
             let day = studyCalendar.date(byAdding: .day, value: offset, to: weeklyStudyStart)!
