@@ -30,4 +30,18 @@ class WeeklyStudyProgressViewModel: ObservableObject {
         
         weeklyStudyProgress = [WeeklyStudyProgress(startDate: theWeek, totalStudyTime: totalStudy, sessions: sessionsFromOverTheWeek)]
     }
+    
+    func dailyProgressChecklist() -> [Bool] {
+        let studyCalendar = Calendar.current
+        let sessions = repository.retrieveAllSessionData()
+
+        guard let weeklyStudyStart = studyCalendar.date(byAdding: .day, value: -6, to: Date()) else { return Array(repeating: false, count: 7) }
+
+        return (0..<7).map { offset in
+            let day = studyCalendar.date(byAdding: .day, value: offset, to: weeklyStudyStart)!
+            return sessions.contains { studyCalendar.isDate($0.sessionDate, inSameDayAs: day) }
+        }
+    }
+
+
 }
