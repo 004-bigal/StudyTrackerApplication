@@ -19,7 +19,7 @@ struct WeeklyStudyProgressView: View {
                 .font(.title3)
                 .bold()
 
-            let dots = viewModel.dailyProgressDots()
+            let checklist = viewModel.dailyProgressChecklist()
 
             List {
                 ForEach(0..<7) { index in
@@ -29,7 +29,7 @@ struct WeeklyStudyProgressView: View {
 
                         Spacer()
 
-                        if dots[index] {
+                        if checklist[index] {
                             Image(systemName: "checkmark.circle.fill")
                                 .foregroundColor(.green)
                         } else {
