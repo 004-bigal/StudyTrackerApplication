@@ -10,11 +10,7 @@ import SwiftUI
 struct StudyTaskView: View {
     @State private var taskName: String = ""
     @State private var errorMessage: String?
-    private static let sharedRepository = StudyRepositoryImplementation()
-    @StateObject private var viewModel: StudyTaskViewModel
-    init() {
-        _viewModel = StateObject(wrappedValue: StudyTaskViewModel(repository: StudyTaskView.sharedRepository))
-    }
+    @StateObject var viewModel: StudyTaskViewModel
     var body: some View {
         if let errorMessage = errorMessage {
             Text(errorMessage)
@@ -85,5 +81,8 @@ struct StudyTaskView: View {
 }
 
 #Preview {
-    StudyTaskView()
+    StudyTaskView(
+        viewModel: StudyTaskViewModel(repository: StudyRepositoryImplementation())
+    )
 }
+
