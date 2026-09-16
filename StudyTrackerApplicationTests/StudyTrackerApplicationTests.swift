@@ -10,29 +10,47 @@ import XCTest
 
 final class StudyTrackerApplicationTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+    func test_createTask_succeeds_withValidName() {
+            let studyRepository = FakeRepository()
+            let useCase = CreateStudyTaskUseCase(studyRepository: studyRepository)
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-        // XCTest Documentation
-        // https://developer.apple.com/documentation/xctest
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+            XCTAssertNoThrow(try useCase.executeCreateStudyTaskUseCase(taskName: "Programming revision"))
+            XCTAssertEqual(studyRepository.studyTasks.count, 1)
         }
-    }
 
+        func test_createTask_fails_whenNameIsEmpty() {
+            let studyRepository = FakeRepository()
+            let useCase = CreateStudyTaskUseCase(studyRepository: studyRepository)
+
+            XCTAssertThrowsError(try useCase.executeCreateStudyTaskUseCase(taskName: "")) { error in
+                XCTAssertEqual(error as? StudyTaskErrors, .emptyName)
+            }
+        }
+
+        func test_logSession_succeeds_withValidDuration() {
+            let studyRepository = FakeRepository()
+            let useCase = LogStudySessionUseCase(studyRepository: studyRepository)
+
+            XCTAssertNoThrow(try useCase.executeLogStudySessionUseCase(subjectName: "Mathematics 1", studyTimeDuration: 25))
+            XCTAssertEqual(studyRepository.sessionRecords.count, 1)
+        }
+
+        func test_logSession_fails_whenDurationIsZero() {
+            let studyRepository = FakeRepository()
+            let useCase = LogStudySessionUseCase(studyRepository: studyRepository)
+
+            XCTAssertThrowsError(try useCase.executeLogStudySessionUseCase(subjectName: "Advanced C++ Dev", studyTimeDuration: 0)) { error in
+                XCTAssertEqual(error as? SesisonRecordError, .studyTimeDurationMissing)
+            }
+        }
+
+        func test_logSession_fails_whenSubjectNameIsEmpty() {
+            let repo = FakeRepository()
+            let useCase = LogStudySessionUseCase(studyRepository: repo)
+
+            XCTAssertThrowsError(try useCase.executeLogStudySessionUseCase(subjectName: "", studyTimeDuration: 30)) { error in
+                XCTAssertEqual(error as? SesisonRecordError, .subjectNameMissing)
+            }
+        }
 }
