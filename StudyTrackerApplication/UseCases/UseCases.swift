@@ -25,3 +25,28 @@ struct CreateStudyTaskUseCase {
         studyRepository.addingTask(newTask)
     }
 }
+
+struct LogStudySessionUseCase {
+
+    let studyRepository: StudyRepository
+
+    func executeLogStudySessionUseCase(subjectName: String, studyTimeDuration: Int) throws {
+
+        guard !subjectName.trimmingCharacters(in: .whitespaces).isEmpty else {
+            throw SesisonRecordError.subjectNameMissing
+        }
+
+        guard studyTimeDuration > 0 else {
+            throw SesisonRecordError.studyTimeDurationMissing
+        }
+
+        let newSession = SessionRecord(
+            subjectName: subjectName,
+            studySessionDuration: studyTimeDuration,
+            sessionDate: Date()
+        )
+
+        studyRepository.saveASession(newSession)
+    }
+}
+
