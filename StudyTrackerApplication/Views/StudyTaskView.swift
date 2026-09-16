@@ -69,14 +69,13 @@ struct StudyTaskView: View {
     }
 
     private func addTask() {
-        if taskName.trimmingCharacters(in: .whitespaces).isEmpty {
-            errorMessage = "The task name cannot be empty."
-            return
+        do {
+            try viewModel.addingTask(taskName)
+            taskName = ""
+            errorMessage = nil
+        } catch {
+            errorMessage = error.localizedDescription
         }
-
-        viewModel.addingTask(taskName)
-        taskName = ""
-        errorMessage = nil
     }
 }
 

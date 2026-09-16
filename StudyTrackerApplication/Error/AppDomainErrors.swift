@@ -9,7 +9,7 @@ import Foundation
 enum StudyTaskErrors: LocalizedError {
     case emptyName
 
-    var studyTaskErrorDescription: String? {
+    var errorDescription: String? {
         switch self {
         case .emptyName:
             return "The task name cannot be empty."

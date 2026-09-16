@@ -21,14 +21,16 @@ class StudyTaskViewModel: ObservableObject {
         studyTasks = repository.retrieveAllStudyTasks()
     }
     
-    func addingTask(_ nameOfTask: String) {
-        if(nameOfTask.isEmpty) {
-            return
+    func addingTask(_ nameOfTask: String) throws {
+        guard !nameOfTask.trimmingCharacters(in: .whitespaces).isEmpty else {
+            throw StudyTaskErrors.emptyName
         }
-        let newStudyTask = StudyTask(taskName: nameOfTask, isTaskDone: false, dateCreated: Date.now)
-        
-        repository.addingTask(newStudyTask)
-        studyTasks.append(newStudyTask)
+        let newTask = StudyTask(
+            taskName: nameOfTask,
+            isTaskDone: false,
+            dateCreated: Date()
+        )
+        repository.addingTask(newTask)
     }
     
     func taskCompletion(_ task: StudyTask) {
