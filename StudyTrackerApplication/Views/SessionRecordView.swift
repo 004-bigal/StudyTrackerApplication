@@ -53,15 +53,9 @@ struct SessionRecordView: View {
 
     func logStudySession() {
         do {
-            guard let duration = Int(studySessionDuration) else {
+            guard Int(studySessionDuration) != nil else {
                 throw SesisonRecordError.studyTimeDurationMissing
             }
-
-            try theViewModel.sessionLog(
-                subjectName: subjectName,
-                studySessionDuration: duration
-            )
-
             subjectName = ""
             studySessionDuration = ""
             errorMessage = nil
@@ -74,6 +68,6 @@ struct SessionRecordView: View {
 
 #Preview {
     SessionRecordView(
-        theViewModel: SessionRecordViewModel(repository: StudyRepositoryImplementation())
+        theViewModel: SessionRecordViewModel(studyRepository: StudyRepositoryImplementation())
     )
 }

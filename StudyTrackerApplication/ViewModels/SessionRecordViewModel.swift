@@ -9,33 +9,29 @@ import Combine
 
 class SessionRecordViewModel: ObservableObject {
     @Published var sessionRecord: [SessionRecord] = []
-    let repository: StudyRepository
+    @Published var errorMessage: String = ""
     
-    init(repository: StudyRepository) {
-        self.repository = repository
+    private let studyRepository: StudyRepository
+    private let logStudySessionUseCase: LogStudySessionUseCase
+    
+    init(studyRepository: StudyRepository) {
+        self.studyRepository = studyRepository
+        self.logStudySessionUseCase = LogStudySessionUseCase(studyRepository: studyRepository)
     }
     
     func loadAllSessionData() {
-        sessionRecord = repository.retrieveAllSessionData()
+        sessionRecord = studyRepository.retrieveAllSessionData()
     }
     
-    func sessionLog(subjectName: String, studySessionDuration: Int) throws {
-
-        guard !subjectName.trimmingCharacters(in: .whitespaces).isEmpty else {
-            throw SesisonRecordError.subjectNameMissing
+    func sessionLog(_ subject: String, _ duration: Int) {
+        do {
+            try logStudySessionUseCase.executeLogStudySessionUseCase(
+                subjectName: subject,
+                studyTimeDuration: duration
+            )
+            loadAllSessionData()
+        } catch {
+            errorMessage = error.localizedDescription
         }
-
-        guard studySessionDuration > 0 else {
-            throw SesisonRecordError.studyTimeDurationMissing
-        }
-
-        let newStudySession = SessionRecord(
-            subjectName: subjectName,
-            studySessionDuration: studySessionDuration,
-            sessionDate: Date()
-        )
-
-        repository.saveASession(newStudySession)
-        loadAllSessionData()
     }
 }

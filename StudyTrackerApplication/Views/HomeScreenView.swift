@@ -14,7 +14,7 @@ struct HomeScreenView: View {
             VStack(spacing: 20) {
                 NavigationLink("Log a study session") {
                     SessionRecordView(
-                        theViewModel: SessionRecordViewModel(repository: sharedRepository)
+                        theViewModel: SessionRecordViewModel(studyRepository: sharedRepository)
                     )
                 }
                 
