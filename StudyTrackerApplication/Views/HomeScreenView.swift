@@ -20,7 +20,7 @@ struct HomeScreenView: View {
                 
                 NavigationLink("Study tasks") {
                     StudyTaskView(
-                        viewModel: StudyTaskViewModel(repository: sharedRepository)
+                        viewModel: StudyTaskViewModel(studyRepository: sharedRepository)
                     )
                 }
                 NavigationLink("Weekly progress") {

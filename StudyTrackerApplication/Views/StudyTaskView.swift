@@ -69,19 +69,19 @@ struct StudyTaskView: View {
     }
 
     private func addTask() {
-        do {
-            try viewModel.addingTask(taskName)
+        viewModel.addingTask(taskName)
+        if viewModel.errorMessage.isEmpty {
             taskName = ""
             errorMessage = nil
-        } catch {
-            errorMessage = error.localizedDescription
+        } else {
+            errorMessage = viewModel.errorMessage
         }
     }
 }
 
 #Preview {
     StudyTaskView(
-        viewModel: StudyTaskViewModel(repository: StudyRepositoryImplementation())
+        viewModel: StudyTaskViewModel(studyRepository: StudyRepositoryImplementation())
     )
 }
 
