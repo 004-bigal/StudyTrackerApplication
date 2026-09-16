@@ -37,6 +37,4 @@ class WeeklyStudyProgressViewModel: ObservableObject {
             return sessions.contains { studyCalendar.isDate($0.sessionDate, inSameDayAs: day) }
         }
     }
-
-
 }
