@@ -25,7 +25,7 @@ struct HomeScreenView: View {
                 }
                 NavigationLink("Weekly progress") {
                     WeeklyStudyProgressView(
-                        viewModel: WeeklyStudyProgressViewModel(repository: sharedRepository))
+                        viewModel: WeeklyStudyProgressViewModel(studyRepository: sharedRepository))
                     }
             }
         }

@@ -53,7 +53,7 @@ struct WeeklyStudyProgressView: View {
 #Preview {
     WeeklyStudyProgressView(
         viewModel: WeeklyStudyProgressViewModel(
-            repository: StudyRepositoryImplementation()
+            studyRepository: StudyRepositoryImplementation()
         )
     )
 }

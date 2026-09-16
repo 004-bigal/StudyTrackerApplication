@@ -10,14 +10,16 @@ import Combine
 
 class WeeklyStudyProgressViewModel: ObservableObject {
     @Published var sessions: [SessionRecord] = []
-    let repository: StudyRepository
+    private let studyRepository: StudyRepository
+    private let generateWeeklyProgressUseCase: GenerateWeeklyProgressUseCase
     
-    init(repository: StudyRepository) {
-        self.repository = repository
+    init(studyRepository: StudyRepository) {
+            self.studyRepository = studyRepository
+            self.generateWeeklyProgressUseCase = GenerateWeeklyProgressUseCase(studyRepository: studyRepository)
     }
     
     func weeklyProgressLoad() {
-        sessions = repository.retrieveAllSessionData()
+        sessions = generateWeeklyProgressUseCase.executeGenerateWeeklyProgressUseCase()
     }
     
     func dailyProgressChecklist() -> [Bool] {
