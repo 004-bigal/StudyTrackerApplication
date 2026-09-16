@@ -10,27 +10,26 @@ import Combine
 
 class StudyTaskViewModel: ObservableObject {
     @Published var studyTasks: [StudyTask] = []
-    let repository: StudyRepository
+    private let studyRepository: StudyRepository
+    private let createStudyTaskUseCase: CreateStudyTaskUseCase
+    @Published var errorMessage: String = ""
     
-    init(repository: StudyRepository) {
-        self.repository = repository
-        loadTasks()
+    init(studyRepository: StudyRepository) {
+        self.studyRepository = studyRepository
+        self.createStudyTaskUseCase = CreateStudyTaskUseCase(studyRepository: studyRepository)
     }
     
     func loadTasks() {
-        studyTasks = repository.retrieveAllStudyTasks()
+        studyTasks = studyRepository.retrieveAllStudyTasks()
     }
     
-    func addingTask(_ nameOfTask: String) throws {
-        guard !nameOfTask.trimmingCharacters(in: .whitespaces).isEmpty else {
-            throw StudyTaskErrors.emptyName
+    func addingTask(_ nameOfTask: String) {
+        do {
+            try createStudyTaskUseCase.executeCreateStudyTaskUseCase(taskName: nameOfTask)
+            loadTasks()
+        } catch {
+            errorMessage = error.localizedDescription
         }
-        let newTask = StudyTask(
-            taskName: nameOfTask,
-            isTaskDone: false,
-            dateCreated: Date()
-        )
-        repository.addingTask(newTask)
     }
     
     func taskCompletion(_ task: StudyTask) {
@@ -38,7 +37,7 @@ class StudyTaskViewModel: ObservableObject {
             var updatedTask = studyTasks
             updatedTask[taskIndex].isTaskDone = true
             studyTasks = updatedTask
-            repository.updatingTask(studyTasks[taskIndex])
+            studyRepository.updatingTask(studyTasks[taskIndex])
         }
     }
 
@@ -46,7 +45,7 @@ class StudyTaskViewModel: ObservableObject {
     func taskDeletion(_ task: StudyTask) {
         if let index = studyTasks.firstIndex(where: { $0.id == task.id }) {
             studyTasks.remove(at: index)
-            repository.deletingTask(task)
+            studyRepository.deletingTask(task)
         }
     }
 
