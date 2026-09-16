@@ -50,3 +50,11 @@ struct LogStudySessionUseCase {
     }
 }
 
+struct GenerateWeeklyProgressUseCase {
+
+    let studyRepository: StudyRepository
+
+    func executeGenerateWeeklyProgressUseCase() -> [SessionRecord] {
+        return studyRepository.retrieveAllSessionData()
+    }
+}
