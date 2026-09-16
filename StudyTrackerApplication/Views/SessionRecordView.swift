@@ -52,21 +52,25 @@ struct SessionRecordView: View {
     }
 
     func logStudySession() {
-        guard let duration = Int(studySessionDuration) else {
-            errorMessage = "The duration of the study session must be a number"
-            return
-        }
+        do {
+            guard let duration = Int(studySessionDuration) else {
+                throw SesisonRecordError.studyTimeDurationMissing
+            }
 
-        theViewModel.sessionLog(
-            subjectName: subjectName,
-            studySessionDuration: duration
-        )
+            try theViewModel.sessionLog(
+                subjectName: subjectName,
+                studySessionDuration: duration
+            )
 
-        subjectName = ""
-        studySessionDuration = ""
-        errorMessage = nil
+            subjectName = ""
+            studySessionDuration = ""
+            errorMessage = nil
+
+        } catch {
+            errorMessage = error.localizedDescription
         }
     }
+}
 
 #Preview {
     SessionRecordView(

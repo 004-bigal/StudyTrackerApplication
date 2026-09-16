@@ -19,18 +19,22 @@ class SessionRecordViewModel: ObservableObject {
         sessionRecord = repository.retrieveAllSessionData()
     }
     
-    func sessionLog(subjectName: String, studySessionDuration: Int) {
-        if(subjectName.isEmpty) {
-            return
+    func sessionLog(subjectName: String, studySessionDuration: Int) throws {
+
+        guard !subjectName.trimmingCharacters(in: .whitespaces).isEmpty else {
+            throw SesisonRecordError.subjectNameMissing
         }
-        if(studySessionDuration <= 0) {
-            return
+
+        guard studySessionDuration > 0 else {
+            throw SesisonRecordError.studyTimeDurationMissing
         }
+
         let newStudySession = SessionRecord(
             subjectName: subjectName,
             studySessionDuration: studySessionDuration,
-            sessionDate: Date())
-        
+            sessionDate: Date()
+        )
+
         repository.saveASession(newStudySession)
         loadAllSessionData()
     }
