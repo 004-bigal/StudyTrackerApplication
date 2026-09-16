@@ -10,7 +10,6 @@ import XCTest
 
 final class StudyTrackerApplicationTests: XCTestCase {
 
-
     func test_createTask_succeeds_withValidName() {
             let studyRepository = FakeRepository()
             let useCase = CreateStudyTaskUseCase(studyRepository: studyRepository)
@@ -46,8 +45,8 @@ final class StudyTrackerApplicationTests: XCTestCase {
         }
 
         func test_logSession_fails_whenSubjectNameIsEmpty() {
-            let repo = FakeRepository()
-            let useCase = LogStudySessionUseCase(studyRepository: repo)
+            let studyRepository = FakeRepository()
+            let useCase = LogStudySessionUseCase(studyRepository: studyRepository)
 
             XCTAssertThrowsError(try useCase.executeLogStudySessionUseCase(subjectName: "", studyTimeDuration: 30)) { error in
                 XCTAssertEqual(error as? SesisonRecordError, .subjectNameMissing)
