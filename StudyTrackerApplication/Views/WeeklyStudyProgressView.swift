@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+// screen for showing the users weekly study progress
 struct WeeklyStudyProgressView: View {
     @ObservedObject var viewModel: WeeklyStudyProgressViewModel
 
@@ -20,7 +21,7 @@ struct WeeklyStudyProgressView: View {
                 .bold()
 
             let checklist = viewModel.dailyProgressChecklist()
-
+            // list containing each of the seven days of the week
             List {
                 ForEach(0..<7) { index in
                     HStack {
