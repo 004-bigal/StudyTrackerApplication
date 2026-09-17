@@ -53,7 +53,8 @@ struct SessionRecordView: View {
             theViewModel.loadAllSessionData()
         }
     }
-
+    
+    // logs the study session inputted by the user
     func logStudySession() {
         do {
             guard !subjectName.trimmingCharacters(in: .whitespaces).isEmpty else {
