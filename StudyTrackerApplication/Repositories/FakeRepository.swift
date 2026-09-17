@@ -5,6 +5,10 @@
 //  Created by Alik Orgun on 16/9/2026.
 //
 
+// a fake repository class created to aid with application testing
+// based off from the study repository and its implementation
+// allows for reliable testing without relying on either SwiftData or persistent storage
+// and allows for testing outside of the database layer
 class FakeRepository: StudyRepository {
     var sessionRecords: [SessionRecord] = []
     var studyTasks: [StudyTask] = []
