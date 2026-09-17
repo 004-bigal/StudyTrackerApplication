@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// main entry point for the entire application.
 @main
 struct StudyTrackerApplicationApp: App {
     var body: some Scene {
