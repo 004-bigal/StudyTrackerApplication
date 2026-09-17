@@ -9,6 +9,7 @@ import SwiftData
 import Foundation
 
 // this code here defines the session record model
+// it represents a study session recorded by the user, including subject name, study time duration and date
 @Model class SessionRecord {
     var id = UUID()
     var subjectName: String
