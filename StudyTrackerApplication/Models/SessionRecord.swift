@@ -8,12 +8,14 @@
 import SwiftData
 import Foundation
 
+// this code here defines the session record model
 @Model class SessionRecord {
     var id = UUID()
     var subjectName: String
     var studySessionDuration: Int
     var sessionDate = Date()
     
+    // initialiser 
     init(subjectName: String, studySessionDuration: Int, sessionDate: Date) {
         self.id = UUID()
         self.subjectName = subjectName
