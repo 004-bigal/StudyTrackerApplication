@@ -8,6 +8,9 @@ import SwiftData
 import Foundation
 
 // creates the study task model
+// the user creates a study task
+// model stores the name of the task and the date it was made
+// utilised by the view model as part of the users task list
 struct StudyTask: Identifiable {
     var id: UUID
     var taskName: String
