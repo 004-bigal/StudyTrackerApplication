@@ -61,4 +61,20 @@ final class StudyTrackerApplicationTests: XCTestCase {
 
         XCTAssertEqual(result.count, 0)
     }
+    
+    func test_weeklyProgress_returnsAllSessions() {
+        let studyRepository = FakeRepository()
+
+        studyRepository.sessionRecords.append(
+            SessionRecord(subjectName: "Technological Research Methods", studySessionDuration: 60, sessionDate: Date())
+        )
+        studyRepository.sessionRecords.append(
+            SessionRecord(subjectName: "Advanced Swift Coding or something", studySessionDuration: 90, sessionDate: Date())
+        )
+
+        let useCase = GenerateWeeklyProgressUseCase(studyRepository: studyRepository)
+        let result = useCase.executeGenerateWeeklyProgressUseCase()
+
+        XCTAssertEqual(result.count, 2)
+    }
 }
