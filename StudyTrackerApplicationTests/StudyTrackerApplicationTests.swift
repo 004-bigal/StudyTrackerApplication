@@ -52,4 +52,13 @@ final class StudyTrackerApplicationTests: XCTestCase {
                 XCTAssertEqual(error as? SesisonRecordError, .subjectNameMissing)
             }
         }
+        
+        func test_weeklyProgress_returnsEmptyWhenNoSessions() {
+            let studyRepository = FakeRepository()
+            let useCase = GenerateWeeklyProgressUseCase(studyRepository: studyRepository)
+
+            let result = useCase.executeGenerateWeeklyProgressUseCase()
+
+            XCTAssertEqual(result.count, 0)
+        }
 }
