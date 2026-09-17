@@ -8,21 +8,25 @@
 import Foundation
 import Combine
 
+// the view model that manages the users study tasks
 class StudyTaskViewModel: ObservableObject {
     @Published var studyTasks: [StudyTask] = []
     private let studyRepository: StudyRepository
     private let createStudyTaskUseCase: CreateStudyTaskUseCase
     @Published var errorMessage: String = ""
     
+    //initialiser
     init(studyRepository: StudyRepository) {
         self.studyRepository = studyRepository
         self.createStudyTaskUseCase = CreateStudyTaskUseCase(studyRepository: studyRepository)
     }
     
+    // loads study tasks
     func loadTasks() {
         studyTasks = studyRepository.retrieveAllStudyTasks()
     }
     
+    // adds a study task
     func addingTask(_ nameOfTask: String) {
         do {
             try createStudyTaskUseCase.executeCreateStudyTaskUseCase(taskName: nameOfTask)
@@ -32,6 +36,7 @@ class StudyTaskViewModel: ObservableObject {
         }
     }
     
+    // marks study tasks as done & updates the user interface to save the change in the repo
     func taskCompletion(_ task: StudyTask) {
         if let taskIndex = studyTasks.firstIndex(where: { $0.id == task.id }) {
             var updatedTask = studyTasks
@@ -41,7 +46,7 @@ class StudyTaskViewModel: ObservableObject {
         }
     }
 
-    
+    // deals with deleting tasks
     func taskDeletion(_ task: StudyTask) {
         if let index = studyTasks.firstIndex(where: { $0.id == task.id }) {
             studyTasks.remove(at: index)
