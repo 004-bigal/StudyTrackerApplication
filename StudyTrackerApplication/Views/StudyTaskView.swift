@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// the study task view that allows user to add and view study tasks
+// can also delete and complete tasks
 struct StudyTaskView: View {
     @State private var taskName: String = ""
     @State private var errorMessage: String?
@@ -68,7 +70,8 @@ struct StudyTaskView: View {
         .padding()
     }
 
-    private func addTask() {
+    // deals with adding a study task
+    func addTask() {
         viewModel.addingTask(taskName)
         if viewModel.errorMessage.isEmpty {
             taskName = ""
