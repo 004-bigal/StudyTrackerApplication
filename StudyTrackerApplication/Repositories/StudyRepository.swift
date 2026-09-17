@@ -7,6 +7,9 @@
 
 import Foundation
 
+// defines the repository utilised throughout the application
+// abstracts the underlying data layer and allows view models and use cases to interact with both the study tasks and the session
+// this supports functions such as creating, retrieving study session data, as well as creating, retrieving, updating and deleting study tasks
 protocol StudyRepository {
     var sessionRecords: [SessionRecord] { get }
     var studyTasks: [StudyTask] { get }
