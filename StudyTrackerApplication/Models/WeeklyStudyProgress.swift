@@ -9,6 +9,7 @@ import SwiftData
 import Foundation
 
 // this creates the weekly study progress model
+// stores the start date for the week, the total time spent on studying & the list of sessions recorded by the user
 @Model class WeeklyStudyProgress {
     var startDate: Date
     var totalStudyTime: Int
