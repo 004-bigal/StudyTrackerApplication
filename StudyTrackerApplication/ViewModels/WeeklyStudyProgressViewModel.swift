@@ -8,20 +8,24 @@
 import Foundation
 import Combine
 
+// the view model that deals with weekly study progress
 class WeeklyStudyProgressViewModel: ObservableObject {
     @Published var sessions: [SessionRecord] = []
     private let studyRepository: StudyRepository
     private let generateWeeklyProgressUseCase: GenerateWeeklyProgressUseCase
     
+    // initialiser
     init(studyRepository: StudyRepository) {
             self.studyRepository = studyRepository
             self.generateWeeklyProgressUseCase = GenerateWeeklyProgressUseCase(studyRepository: studyRepository)
     }
     
+    // loads weekly progress
     func weeklyProgressLoad() {
         sessions = generateWeeklyProgressUseCase.executeGenerateWeeklyProgressUseCase()
     }
     
+    // function that returns booleans telling the user of which current week the user studied in
     func dailyProgressChecklist() -> [Bool] {
         let studyCalendar = Calendar.current
         let sessions = self.sessions
