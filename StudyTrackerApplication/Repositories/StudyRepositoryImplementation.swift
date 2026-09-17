@@ -5,6 +5,8 @@
 //  Created by Alik Orgun on 13/9/2026.
 //
 
+// this class provides the actual implementation of the methods outlined in the study repository file
+// stores study tasks and session records used by the applications business use cases and view models
 class StudyRepositoryImplementation: StudyRepository {
     var sessionRecords: [SessionRecord] = []
     var studyTasks: [StudyTask] = []
