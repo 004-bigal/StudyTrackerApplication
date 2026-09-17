@@ -7,12 +7,14 @@
 import SwiftData
 import Foundation
 
+// creates the study task model
 struct StudyTask: Identifiable {
     var id: UUID
     var taskName: String
     var isTaskDone: Bool
     var dateCreated: Date
     
+    // initialiser
     init(id: UUID = UUID(), taskName: String, isTaskDone: Bool, dateCreated: Date) {
         self.id = id
         self.taskName = taskName
