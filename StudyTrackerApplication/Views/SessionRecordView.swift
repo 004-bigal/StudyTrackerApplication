@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+//the view for displaying study session records
 struct SessionRecordView: View {
     @State var subjectName: String = ""
     @State var studySessionDuration: String = ""
@@ -20,6 +20,7 @@ struct SessionRecordView: View {
         }
         
         VStack(spacing: 20) {
+            // textfields displaying the prompts for user to enter
 
             TextField("Name of the subject", text: $subjectName)
                 .textFieldStyle(.roundedBorder)
@@ -30,7 +31,9 @@ struct SessionRecordView: View {
 
             Button("Log session") { logStudySession() }
             .buttonStyle(.borderedProminent)
-
+            // list displaying logged study sessions
+            // including info such as durations, dates and subject
+            // names
             VStack {
                 List(theViewModel.sessionRecord) { session in
                     VStack(alignment: .leading) {
@@ -53,9 +56,16 @@ struct SessionRecordView: View {
 
     func logStudySession() {
         do {
-            guard Int(studySessionDuration) != nil else {
+            guard !subjectName.trimmingCharacters(in: .whitespaces).isEmpty else {
+                throw SesisonRecordError.subjectNameMissing
+            }
+
+            guard let duration = Int(studySessionDuration) else {
                 throw SesisonRecordError.studyTimeDurationMissing
             }
+
+            theViewModel.sessionLog(subjectName, duration)
+
             subjectName = ""
             studySessionDuration = ""
             errorMessage = nil
