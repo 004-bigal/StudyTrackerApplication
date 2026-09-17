@@ -5,8 +5,11 @@
 //  Created by Alik Orgun on 16/9/2026.
 //
 
+// this file outlines the three different business cases for the application, expressing the applications core logic
+
 import Foundation
 
+// this business case deals with creating a new study task
 struct CreateStudyTaskUseCase {
 
     let studyRepository: StudyRepository
@@ -26,6 +29,7 @@ struct CreateStudyTaskUseCase {
     }
 }
 
+// this business case deals with logging a new study session into the session record
 struct LogStudySessionUseCase {
 
     let studyRepository: StudyRepository
@@ -50,6 +54,7 @@ struct LogStudySessionUseCase {
     }
 }
 
+// this business case deals with generating weekly progress data from all stored study sessions
 struct GenerateWeeklyProgressUseCase {
 
     let studyRepository: StudyRepository
